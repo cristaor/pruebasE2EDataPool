@@ -18,16 +18,22 @@ npm install -g cypress
 
 ## Aplicación bajo pruebas (Ghost)
 
-## Instalar Ghost usando docker
+### Instalar Ghost usando docker
 Para el diseño y ejecución de estas pruebas, se utilizó Ghost .44 que ya tiene imagénes definidas en DockerHub. Con los siguientes comandos se podrían descargar y ejecutar el contenedor teniendo como requisito que debe existir docker instalado previamente en la máquina.
 
 ```
 docker run -d  -e url=http://localhost:3003 -p 3003:2368 ghost:4.44.0
 ```
 
+## Librerias adicionales
+
+### Faker-js
+Para generación de datos aleatorios
 
 
-
+```
+npm install @faker-js/faker --save-dev
+```
 
 
 ## Estrategias a Usar
@@ -46,6 +52,14 @@ En esta estrategia y teniendo en cuenta la generación de datos aleatorios se ut
 
 
 ### Escenarios aleatorios
+
+
+
+## Como correr las pruebas
+
+cypress run --config-file cypress_ghost_pruebas_aleatorias.jsos_ghost_pruebas_aleatorias.json --headed --no-exit
+
+cypress run --headed --config-file cypress_ghost_4.44_pseudo_aleatorio.json
 
 
 
