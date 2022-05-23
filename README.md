@@ -58,7 +58,9 @@ En esta estrategia y teniendo en cuenta la generación de datos aleatorios se ut
 
 
 ### Escenarios aleatorios
+Es aquel que no genera un conjunto de datos antes de iniciar las pruebas, sino por el contrario se van generando a medida que se necesitan. Se definen tuplas que nos permiten manejar los datos requeridos para diferentes tipos de entrada que nos facilitarán las pruebas. 
 
+Se hizo uso de Faker para la generaciòn de datos para este caso que necesitábamos combinaciones de informaciòn de acuerdo a los parámetros de entrada de la aplicaciòn. 
 
 
 ## Como correr las pruebas
@@ -73,4 +75,7 @@ cypress run --config-file cypress_ghost_pruebas_aleatorias_pool_apriori.json --h
 cypress run --headed --config-file cypress_ghost_4.44_pseudo_aleatorio.json
 ```
 
-
+### Aleatorio
+```
+cypress run --config-file cypress_ghost_4.44_aleatorias.json --headed
+```
