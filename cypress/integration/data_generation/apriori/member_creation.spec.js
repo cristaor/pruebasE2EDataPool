@@ -18,7 +18,7 @@ describe('Create members', () => {
         console.log(data)
     })
  
-       Cypress._.range(0, 15).forEach(index =>
+       Cypress._.range(0, 26).forEach(index =>
         {
         
          it.only(`Test to create member failed when the form does not have all mandatory fields ${index+1}`, () => {
