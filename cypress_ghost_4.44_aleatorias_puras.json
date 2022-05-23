@@ -1,12 +1,10 @@
 {
     "baseUrl": "http://localhost:3003/ghost",
     "env": {
-        "user": "robotpruebas@uniandes.edu.co",
-        "password": "RobotMISO..20&"
+        "user": "frankcandanoza@hotmail.com",
+        "password": "Pepe123456"
     },
     "testFiles": [
-        "./4.44/aleatorios/member_creation.spec.js"
-    ]
-
-    
+        "./4.44/aleatorios/create_tag.spec.js"
+    ]    
 }

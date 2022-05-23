@@ -1,4 +1,4 @@
-import {faker} from "../../../../node_modules/@faker-js/faker"
+import {faker} from "@faker-js/faker"
 
 export class DataForMember {
 
@@ -19,7 +19,7 @@ export class DataForMember {
         return faker.lorem.paragraph()
     }
 
-    build_member_tuple(){
+    build_member_data(){
         return [this.create_name(), this.create_email(), this.create_labels(), this.create_note()]
     }
 

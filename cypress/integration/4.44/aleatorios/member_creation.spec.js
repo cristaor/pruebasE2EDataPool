@@ -8,7 +8,7 @@ const login = new Login()
 
 import {Member} from "../pages/member"
 const member = new Member(screenshot)
-import {DataForMember} from "./funciones_aleatorias"
+import {DataForMember} from "./funciones_aleatorias_members"
 const dataForMember = new DataForMember()
 
 describe('Create members', () => {
@@ -28,7 +28,7 @@ describe('Create members', () => {
             
             member.click_to_create_new_member()
             
-            let tuple = dataForMember.build_member_tuple()
+            let tuple = dataForMember.build_member_data()
             member.create_member(tuple[0], tuple[1],  tuple[2])
 
             cy.wait(2000)
@@ -53,7 +53,7 @@ describe('Create members', () => {
             
             member.click_to_create_new_member()
             
-            let tuple = dataForMember.build_member_tuple()
+            let tuple = dataForMember.build_member_data()
             
             member.create_member(tuple[0], '', tuple[2])
     
@@ -72,7 +72,7 @@ describe('Create members', () => {
             
             member.click_to_create_new_member()
             
-            let tuple = dataForMember.build_member_tuple()
+            let tuple = dataForMember.build_member_data()
 
             let name = "pepitoperez"
             
@@ -96,8 +96,33 @@ describe('Create members', () => {
             member.click_to_create_new_member()
             
             var name = "pepitoLulo"
-            let tuple = dataForMember.build_member_tuple()
+            let tuple = dataForMember.build_member_data()
             member.create_member(name.repeat(19)+"2", tuple[1],  tuple[2])
+
+            cy.wait(2000)
+        
+            // Redirect to members list to validate its creation
+            member.navigate_to_members_list()
+            
+            member.open_last_created_member()
+
+            cy.wait(2000)
+            
+            member.validate_created_member(name.repeat(19)+"2", tuple[1], tuple[2])
+    
+        })
+
+        it('Test to create member failed when the member`s name lenght has the maximum character allowed but its lenght is so big', () => {
+
+        
+            screenshot.case('Test to create member succesfully with mandatory fields')
+            member.navigate_to_members_list()
+            
+            member.click_to_create_new_member()
+            
+            var name = "pepitoLulo"
+            let tuple = dataForMember.build_member_data()
+            member.create_member(name.repeat(45)+"2", tuple[1],  tuple[2])
 
             cy.wait(2000)
         
@@ -120,7 +145,7 @@ describe('Create members', () => {
             
             member.click_to_create_new_member()
             
-            let tuple = dataForMember.build_member_tuple()
+            let tuple = dataForMember.build_member_data()
             
             member.create_member(tuple[0], tuple[1], tuple[2])
             cy.wait(2000)
@@ -151,7 +176,7 @@ describe('Create members', () => {
             
             member.click_to_create_new_member()
             
-            let tuple = dataForMember.build_member_tuple()
+            let tuple = dataForMember.build_member_data()
             let mail = "data@hotmail"+("pepepepepe".repeat(19))+".com"
             
             member.create_member(tuple[0], mail, tuple[2])
@@ -173,7 +198,7 @@ describe('Create members', () => {
             
             member.click_to_create_new_member()
             
-            let tuple = dataForMember.build_member_tuple()
+            let tuple = dataForMember.build_member_data()
             let mail = "data@hotmail"+("pepepepepe".repeat(40))+".com"
             
             member.create_member(tuple[0], mail, tuple[2])
