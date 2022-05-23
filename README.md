@@ -47,6 +47,8 @@ Por lo general los datos son extraidos desde una base de datos o un archivo plan
 Tambien existen varias herramientas para generar pool de dats apriori, en el caso de esta prueba se uso la herramienta mockaroo
 se puede encontrar mas información en https://www.mockaroo.com/
 
+Esta estrategia se integra a los casos de pruebas por medio de la generacion de un conjunto de datos aleatorios generados desde mockaroo y guardados en un archivo json 
+en el directorio de pruebas, luego se usan estos datos como insumo de los escenarios de prueba.
 
 ### Datapool no Apriori(pseudoaleatorio) 
 Es el que genera los datos durante las pruebas diámicamente. 
@@ -55,6 +57,7 @@ Este no conserva una estructura predefinida, y tiene mayor variabilidad. Se pued
 Para generar un datapool fijo a partir del cual los tutores puedan reproducir las pruebas con los mismos valores, se coloca una semilla.
 
 En esta estrategia y teniendo en cuenta la generación de datos aleatorios se utliza la herramienta _faker-js_.
+
 
 
 ### Escenarios aleatorios
