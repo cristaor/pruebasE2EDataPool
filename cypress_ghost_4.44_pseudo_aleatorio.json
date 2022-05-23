@@ -1,0 +1,14 @@
+{
+    "projectId":"Tests-with-cypress on GHOST",
+    "baseUrl": "http://localhost:3003/ghost",
+    "env": {
+        "user": "robotpruebas@uniandes.edu.co",
+        "password": "RobotMISO..20&",
+        "url1": "localhost:3003"
+    },
+    "testFiles": [
+        "./4.44/create_tag.spec.js"
+    ]
+
+    
+}
