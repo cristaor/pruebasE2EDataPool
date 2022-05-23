@@ -40,6 +40,12 @@ npm install @faker-js/faker --save-dev
 
 ### Datapool Apriori
 
+Es el que crea los datos antes de la ejecución de la prueba y estos hacen parte del diseño de la prueba,
+plasma la pericia del diseñador de la prueba y la experiencia en casos limites e heuristicas implicitas.
+Por lo general los datos son extraidos desde una base de datos o un archivo plano.
+
+Tambien existen varias herramientas para generar pool de dats apriori, en el caso de esta prueba se uso la herramienta mockaroo
+se puede encontrar mas información en https://www.mockaroo.com/
 
 
 ### Datapool no Apriori(pseudoaleatorio) 
@@ -57,9 +63,14 @@ En esta estrategia y teniendo en cuenta la generación de datos aleatorios se ut
 
 ## Como correr las pruebas
 
-cypress run --config-file cypress_ghost_pruebas_aleatorias.jsos_ghost_pruebas_aleatorias.json --headed --no-exit
+### Datapool Apriori
+```
+cypress run --config-file cypress_ghost_pruebas_aleatorias_pool_apriori.json --headed --no-exit
+```
 
+### Datapool no Apriori(pseudoaleatorio) 
+```
 cypress run --headed --config-file cypress_ghost_4.44_pseudo_aleatorio.json
-
+```
 
 

@@ -1,0 +1,15 @@
+{
+    "baseUrl": "http://localhost:3003/ghost",
+    "env": {
+        "user": "d.hidalgo@uniandes.edu.co",
+        "password": "RobotMISO..20&"
+    },
+    "testFiles": [
+        
+        
+        "./data_generation/apriori/member_creation.spec.js",
+        "./data_generation/apriori/create_tag.spec.js"
+    ]
+
+    
+}
