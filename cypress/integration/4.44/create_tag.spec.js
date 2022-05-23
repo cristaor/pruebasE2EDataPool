@@ -19,7 +19,7 @@ describe('Create tag', () => {
 
         cy.wait(2000)
     })
-/*
+
     it('1. Escenario de pruebas positivo: Creación de Tag con todos los campos llenos', () => {
         
         //screenshot.case('Test to create tag succesfully with mandatory fields')
@@ -470,10 +470,10 @@ describe('Create tag', () => {
     
         //cy.wait(10000);
     });
-    */
     
     
-    it('16. Escenario de pruebas negativo/positivo: Creación de Tag con valor de nombre vacio, se verifica el error, se coloca un nombre dde tah valido y se procede a intentar salvar: ESta prueba genera un issue', () => {
+    
+    it('16. Escenario de pruebas negativo/positivo: Creación de Tag con valor de nombre vacio, se verifica el error, se coloca un nombre de tag valido y se procede a intentar salvar: ESta prueba genera un issue', () => {
         
         //screenshot.case('Test to create tag succesfully with mandatory fields')
         tag.navigate_to_tags_list()
@@ -507,77 +507,480 @@ describe('Create tag', () => {
         
     });
     
-    
-  /*  
-    it('Test to create internal tag succesfully with mandatory fields', () => {
+   
+   it('17. Escenario positivo: Creación de Tag con Datos validos y ahora con datos de Meta', () => {
         
-        screenshot.case('Test to create internal tag succesfully with mandatory fields')
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
         tag.navigate_to_tags_list()
 
-        cy.wait(2000)
+        cy.wait(1500)
 
         tag.click_to_create_new_tag()
 
-        cy.wait(2000)
+        cy.wait(1500)
 
-        var tagName = '#'+Math.random()
-        var tagSlug =  tagName + '.slug'
-        var tagDescription = 'Esta es la descripción del nuevo tag : '+tagName
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(4207);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.lorem.sentence(5);
+        var metaDescription = faker.lorem.word(10);
+        var metaURL = faker.internet.url();
 
-        tag.create_tag(tagName, tagSlug, tagDescription, null)
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL);
 
         cy.wait(1500);
 
-        tag.validate_if_exist_internal_tag(tagName)
-    
-    })
-
-    it('Test to create tag failed when the form does not have all mandatory fields (tag name)', () => {
-
-        screenshot.case('Test to create tag failed when the form does not have all mandatory fields (tag name)')
         tag.navigate_to_tags_list()
 
-        cy.wait(2000)
+        cy.wait(1000);
+
+        //tag.validate_if_exist_tag(tagName);
+        tag.getMessageError(tagName,'h3');
+    
+        //cy.wait(10000);
+    });
+     
+    
+   
+    
+    it('18. Escenario de pruebas de frontera: Creación de Tag con longitud de campo meta Title de 300 caracteres (long max de campo)', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
 
         tag.click_to_create_new_tag()
 
-        cy.wait(2000)
+        cy.wait(1500)
 
-        var tagSlug =  'tagslug'
-        var tagDescription = 'Esta es la descripción del nuevo tag'
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(5438);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.random.alphaNumeric(300);
+        var metaDescription = faker.lorem.word(10);
+        var metaURL = faker.internet.url();
 
-        tag.create_tag('', tagSlug, tagDescription, null)
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL);
 
-        // Assertions
-        tag.validateMessageWhenTagNameFieldValueIsMissing()
-        
-        cy.url().should('eq', cy.config('baseUrl')+'/#/tags/new')
+        cy.wait(1500);
 
-        
-    })
-
-    
-    it('Test to create tag failed when the color field isn t a hexadecimal value', () => {
-        screenshot.case('Test to create tag failed when the color field isn t a hexadecimal value')
-        // Redirect to create member form
         tag.navigate_to_tags_list()
 
-        cy.wait(2000)
+        cy.wait(1000);
+
+        //tag.validate_if_exist_tag(tagName);
+        tag.getMessageError(tagName,'h3');
+    
+        //cy.wait(10000);
+    });
+   
+  
+  it('19. Escenario de pruebas de frontera: Creación de Tag con longitud de campo meta Title de 301 caracteres (por encima del limite)', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
 
         tag.click_to_create_new_tag()
 
-        cy.wait(2000)
+        cy.wait(1500)
 
-        var tagSlug =  'tagslug'
-        var tagDescription = 'Esta es la descripción del nuevo tag'
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(3478);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.random.alphaNumeric(301);
+        var metaDescription = faker.lorem.paragraph();
+        var metaURL = faker.internet.url();
 
-        tag.create_tag('tag name', tagSlug, tagDescription, 'trtrsw')
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL);
 
-        // Assertions
-        tag.validateMessageWhenTagColorIsWrong()
+        cy.wait(1000);
+
+        tag.getMessageError('Meta Title cannot be longer than 300 characters.',"p[class='response']");
+    
+        //cy.wait(10000);
+    });
+   
+   
+   it('20. Escenario de pruebas de frontera: Creación de Tag con longitud de campo meta Description de 500 caracteres (max long de campo)', () => {
         
-        cy.url().should('eq', cy.config('baseUrl')+'/#/tags/new')
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
 
-    })
-*/
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(2148);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.random.alphaNumeric(20);
+        var metaDescription = faker.random.alphaNumeric(500);
+        var metaURL = faker.internet.url();
+
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL);
+
+        cy.wait(1500);
+
+        tag.navigate_to_tags_list()
+
+        cy.wait(1000);
+
+        tag.getMessageError(tagName,'h3');
+        //tag.getMessageError('Meta Title cannot be longer than 300 characters.',"p[class='response']");
+    
+        //cy.wait(10000);
+    });
+   
+   
+    it('21. Escenario de pruebas de frontera: Creación de Tag con longitud de campo meta Description de 501 caracteres (por encima de longitud máxima)', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(5392);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.random.alphaNumeric(20);
+        var metaDescription = faker.random.alphaNumeric(501);
+        var metaURL = faker.internet.url();
+
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL);
+
+        cy.wait(1500);
+
+        tag.getMessageError('Meta Description cannot be longer than 500 characters.',"p[class='response']");
+    
+        //cy.wait(10000);
+    });
+    
+    
+    it('22. Escenario de pruebas de frontera negativo/ positivo: Creación de Tag con longitud de campo meta Description de 501 caracteres (por encima de longitud máxima), luego se elimina un caracter y se intenta salvar de Nuevo. Se genera un Issu', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(5392);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.random.alphaNumeric(20);
+        var metaDescription = faker.random.alphaNumeric(501);
+        var metaURL = faker.internet.url();
+
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL);
+
+        cy.wait(1500);
+
+        tag.getMessageError('Meta Description cannot be longer than 500 characters.',"p[class='response']");
+    
+        cy.wait(1000);
+        var metaDescription = faker.random.alphaNumeric(501);
+        tag.create_tag_meta_retry_description(metaDescription);
+        cy.wait(1500);
+
+        tag.getMessageError('Meta Description cannot be longer than 500 characters.',"p[class='response']");
+        
+    });
+    
+    
+     it('23. Escenario de pruebas negativo: Creación de Tag con valor de campo Canonical URL con formato de URL invalido', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(5487);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.lorem.words(5);
+        var metaDescription = faker.lorem.paragraph(3);
+        var metaURL = faker.random.alphaNumeric(15);
+
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL);
+
+        cy.wait(1500);
+
+        tag.getMessageError('The url should be a valid url',"p[class='response']");
+    
+        //cy.wait(10000);
+    });   
+   
+  
+  it('24. Escenario de pruebas de frontera: Creación de Tag con longitud de campo meta Canonical URL de 800 caracteres (por encima de longitud máxima), genera un Issue', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(3711);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var metaTitle = faker.lorem.words(5);
+        var metaDescription = faker.lorem.paragraph(3);
+        var metaURL = faker.internet.url();
+        //var metaURL2 = faker.random.alphaNumeric(500);
+        var metaURL2 = faker.lorem.paragraph(25);
+        console.log(`Long de metaURL3 ${metaURL2.length}`);
+
+        var metaURL3=metaURL + "/" + metaURL2;
+        
+        tag.create_tag_meta(tagName, tagSlug, tagDescription, color, metaTitle, metaDescription, metaURL3);
+
+        cy.wait(1500);
+
+        tag.getMessageError('Validation error, cannot save tag. Validation failed for canonical_url.',"div[class='gh-alert-content']");
+    
+        //cy.wait(10000);
+    });
+  
+   
+    it('25. Escenario positivo: Creación de Tag con Datos validos y ahora con datos de Twitter Card', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(4207);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var twitterTitle = faker.lorem.sentence(5);
+        var twitterDescription = faker.lorem.word(10);
+        
+
+        tag.create_tag_twitter(tagName, tagSlug, tagDescription, color, twitterTitle, twitterDescription);
+
+        cy.wait(1500);
+
+        tag.navigate_to_tags_list()
+
+        cy.wait(1000);
+
+        //tag.validate_if_exist_tag(tagName);
+        tag.getMessageError(tagName,'h3');
+    
+        //cy.wait(10000);
+    });
+    
+   
+    
+  it('26. Escenario de pruebas de frontera: Creación de Tag con longitud de campo Twitter Description de 500 caracteres (max long de campo)', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(9956);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var twitterTitle = faker.lorem.sentence(5);
+        var twitterDescription = faker.random.alphaNumeric(500);
+        //var twitterDescription = faker.lorem.paragraph(24);
+
+        tag.create_tag_twitter(tagName, tagSlug, tagDescription, color, twitterTitle, twitterDescription);
+
+        cy.wait(1500);
+
+        tag.validate_if_exist_tag(tagName);
+        
+        //tag.getMessageError('Validation error, cannot save tag. Validation failed for twitter_description.',"div[class='gh-alert-content']");
+        //cy.wait(10000);
+    });
+    
+    it('27. Escenario de pruebas de frontera: Creación de Tag con longitud de campo Twitter Description de 501 caracteres (por encima del limite). Genera Issue', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(9956);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var twitterTitle = faker.lorem.sentence(5);
+        var twitterDescription = faker.random.alphaNumeric(501);
+        //var twitterDescription = faker.lorem.paragraph(24);
+
+        tag.create_tag_twitter(tagName, tagSlug, tagDescription, color, twitterTitle, twitterDescription);
+
+        cy.wait(1500);
+
+        //tag.validate_if_exist_tag(tagName);
+        
+        tag.getMessageError('Validation error, cannot save tag. Validation failed for twitter_description.',"div[class='gh-alert-content']");
+        //cy.wait(10000);
+    });
+    
+    
+    it('28. Escenario de pruebas de frontera: Creación de Tag con longitud de campo Twitter title de 300 caracteres (max long de campo)', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(4388);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var twitterTitle = faker.random.alphaNumeric(300);
+        var twitterDescription = faker.lorem.paragraph(3);
+        //var twitterDescription = faker.lorem.paragraph(24);
+
+        tag.create_tag_twitter(tagName, tagSlug, tagDescription, color, twitterTitle, twitterDescription);
+
+        cy.wait(1500);
+
+        tag.validate_if_exist_tag(tagName);
+        
+        //tag.getMessageError('Validation error, cannot save tag. Validation failed for twitter_description.',"div[class='gh-alert-content']");
+        //cy.wait(10000);
+    });
+    
+    
+    it('29. Escenario de pruebas de frontera: Creación de Tag con longitud de campo Twitter title de 301 caracteres (por encima del limite)', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(4155);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var twitterTitle = faker.random.alphaNumeric(301);
+        var twitterDescription = faker.lorem.paragraph(3);
+        //var twitterDescription = faker.lorem.paragraph(24);
+
+        tag.create_tag_twitter(tagName, tagSlug, tagDescription, color, twitterTitle, twitterDescription);
+
+        cy.wait(1500);
+
+        //tag.validate_if_exist_tag(tagName);
+        
+        tag.getMessageError('Validation error, cannot save tag. Validation failed for twitter_title.',"div[class='gh-alert-content']");
+        //cy.wait(10000);
+    });
+     
+    
+    it('30. Escenario positivo: Creación de Tag con Datos validos y ahora con datos de Facebook Card', () => {
+        
+        //screenshot.case('Test to create tag succesfully with mandatory fields')
+        tag.navigate_to_tags_list()
+
+        cy.wait(1500)
+
+        tag.click_to_create_new_tag()
+
+        cy.wait(1500)
+
+        //semilla para que genere los mismos valores durante las pruebas
+        faker.seed(4299);
+        var tagName = faker.lorem.word();
+        var tagSlug =  faker.lorem.slug();
+        var tagDescription = faker.lorem.paragraph();
+        var color = faker.internet.color();
+        var fbTitle = faker.lorem.sentence(5);
+        var fbDescription = faker.lorem.word(10);
+        
+
+        tag.create_tag_fb(tagName, tagSlug, tagDescription, color, fbTitle, fbDescription);
+
+        cy.wait(1500);
+
+        tag.navigate_to_tags_list()
+
+        cy.wait(1000);
+
+        //tag.validate_if_exist_tag(tagName);
+        tag.getMessageError(tagName,'h3');
+    
+        //cy.wait(10000);
+    });
+
 });
