@@ -75,10 +75,12 @@ cypress run --config-file cypress_ghost_pruebas_aleatorias_pool_apriori.json --h
 
 ### Datapool no Apriori(pseudoaleatorio) 
 ```
+cypress run --headed --config-file cypress_create_user.json
 cypress run --headed --config-file cypress_ghost_4.44_pseudo_aleatorio.json
 ```
 
 ### Aleatorio
 ```
+
 cypress run --config-file cypress_ghost_4.44_aleatorias.json --headed
 ```
