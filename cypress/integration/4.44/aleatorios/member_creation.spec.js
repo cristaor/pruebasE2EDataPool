@@ -24,7 +24,7 @@ describe('Create members', () => {
     Cypress._.range(0, 3).forEach(index =>
     {
 
-        it.only(`Test to create member succesfully when the form has all mandatory fields ${index+1} with random data`, () => {
+        it(`Test to create member succesfully when the form has all mandatory fields ${index+1} with random data`, () => {
             
             let item = data[index]
             screenshot.case('Test to create member succesfully with mandatory fields')
