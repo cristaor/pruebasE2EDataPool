@@ -19,8 +19,16 @@ export class DataForMember {
         return faker.lorem.paragraph()
     }
 
-    build_member_data(){
-        return [this.create_name(), this.create_email(), this.create_labels(), this.create_note()]
+    build_member_data(rows){
+
+        let data = []
+
+        for(var i = 0; i < rows ; i++){
+            data[i] = {"name":this.create_name(), "email": this.create_email(), "labels": this.create_labels(), "note": this.create_note()}
+        }
+
+        return data
+
     }
 
 }

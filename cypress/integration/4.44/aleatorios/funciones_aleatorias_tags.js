@@ -15,8 +15,15 @@ export class DataForTags {
         return faker.lorem.paragraph()
     }
 
-    build_tag_data(){
-        return [this.create_name(), this.create_slug(), this.create_description()]
+    build_tag_data(rows){
+
+        let data = []
+
+        for(var i = 0; i < rows ; i++){
+            data[i] = {"name":this.create_name(), "slug": this.create_slug(), "description": this.create_description()}
+        }
+
+        return data
     }
 
 }

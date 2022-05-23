@@ -5,13 +5,13 @@ export class Member {
     }
    
     navigate_to_members_list(){
-        cy.get('span.gh-nav-member-count').click()
+        cy.get('span.gh-nav-member-count').click({force: true});
         this.screenshot.take()
     }
 
     click_to_create_new_member() {
         
-        cy.get('a.ember-view.gh-btn.gh-btn-primary').click();
+        cy.get('a.ember-view.gh-btn.gh-btn-primary').click({force: true});
         this.screenshot.take()
         return this;
 
@@ -31,7 +31,7 @@ export class Member {
         this.screenshot.take()
 
         // Save
-        cy.get('button[class="gh-btn gh-btn-primary gh-btn-icon ember-view"]').click()
+        cy.get('button[class="gh-btn gh-btn-primary gh-btn-icon ember-view"]').click({force: true});
         
         return this;
     }
@@ -39,7 +39,7 @@ export class Member {
     open_last_created_member(){
         this.navigate_to_members_list()
         this.screenshot.take()
-        cy.get('tbody').find('tr').eq(0).find('a').eq(0).click()
+        cy.get('tbody').find('tr').eq(0).find('a').eq(0).click({force: true});
     }
 
     validate_created_member(memberName, memberEmail, memberNote){
@@ -77,7 +77,7 @@ export class Member {
 
     clickDeleteMember(){
         // Delete member
-        cy.get('button.gh-btn.gh-btn-icon.icon-only.gh-btn-action-icon.closed.ember-view').click()
+        cy.get('button.gh-btn.gh-btn-icon.icon-only.gh-btn-action-icon.closed.ember-view').click({force: true});
         this.screenshot.take()
         cy.get('span[class="red"]').click()
 
@@ -94,7 +94,7 @@ export class Member {
     }
 
     clickToCancelMemberDeleteOperation(){
-        cy.get('button.gh-btn').contains('Cancel').click()
+        cy.get('button.gh-btn').contains('Cancel').click({force: true});
     }
 
     validateMemberDoesNotExist(memberEmail){
