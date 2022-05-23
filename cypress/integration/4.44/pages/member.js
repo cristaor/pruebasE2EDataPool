@@ -63,6 +63,13 @@ export class Member {
         this.screenshot.take()
     }
 
+    validateMessageWhenEmailFieldExceedsMaximumCharacterLimit(){
+        //cy.get('p[class="response"]').invoke('text').should('eq', '\n \n\n Email cannot be longer than 191 characters.\n\n \n')
+                                                                   
+        cy.get('button[class="gh-btn gh-btn-primary gh-btn-icon gh-btn-red ember-view"]').invoke('text').should('eq','    \n    \n    \n     Retry\n')
+        this.screenshot.take()
+    }
+
     validateMessageWhenMailMemberAlreadyExist(){
         cy.get('div[class="gh-alert-content"]').invoke('text').should('eq', '\n    Validation error, cannot save member. Member already exists. Attempting to add member with existing email address\n')
         this.screenshot.take()
