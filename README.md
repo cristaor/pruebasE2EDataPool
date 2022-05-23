@@ -57,7 +57,7 @@ En esta estrategia y teniendo en cuenta la generación de datos aleatorios se ut
 
 ## Como correr las pruebas
 
-cypress run --config-file cypress_ghost_pruebas_aleatorias.jsos_ghost_pruebas_aleatorias.json --headed --no-exit
+cypress run --config-file cypress_ghost_pruebas_aleatorias_pool_apriori.json --headed --no-exit
 
 cypress run --headed --config-file cypress_ghost_4.44_pseudo_aleatorio.json
 
